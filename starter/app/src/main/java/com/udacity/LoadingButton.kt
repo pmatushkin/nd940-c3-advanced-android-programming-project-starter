@@ -31,7 +31,15 @@ class LoadingButton @JvmOverloads constructor(
                 if (valueAnimator.isStarted) {
                     valueAnimator.cancel()
                 }
+
+                // Reset current progress
+                currentProgress = 0f
+
+                // Re-enable button
                 isClickable = true
+
+                // Redraw the button
+                invalidate()
             }
             else -> {
                 buttonText = context.getString(R.string.button_loading)
@@ -82,13 +90,7 @@ class LoadingButton @JvmOverloads constructor(
 
             // Draw linear progress bar
             paint.color = linearProgressBarColor
-            canvas.drawRect(
-                0f,
-                0f,
-                width * currentProgress / 100,
-                height.toFloat(),
-                paint
-            )
+            canvas.drawRect(0f, 0f, width * currentProgress / 100, height.toFloat(), paint)
 
             // Draw circular progress bar
             configureOval()
@@ -97,7 +99,12 @@ class LoadingButton @JvmOverloads constructor(
 
             // Draw button text
             paint.color = Color.WHITE
-            canvas.drawText(buttonText, width / 2f, (height - (paint.descent() + paint.ascent())) / 2f, paint)
+            canvas.drawText(
+                buttonText,
+                width / 2f,
+                (height - (paint.descent() + paint.ascent())) / 2f,
+                paint
+            )
         }
     }
 
@@ -112,17 +119,6 @@ class LoadingButton @JvmOverloads constructor(
         widthSize = w
         heightSize = h
         setMeasuredDimension(w, h)
-    }
-
-    override fun performClick(): Boolean {
-        // todo: uncomment super.performClick() below
-        //super.performClick()
-
-        if (buttonState == ButtonState.Completed) {
-            buttonState = ButtonState.Loading
-        }
-
-        return true
     }
 
     private fun configureAnimator() {
@@ -152,5 +148,13 @@ class LoadingButton @JvmOverloads constructor(
 
             isOvalConfigured = true
         }
+    }
+
+    fun beginLoading() {
+        buttonState = ButtonState.Loading
+    }
+
+    fun completeLoading() {
+        buttonState = ButtonState.Completed
     }
 }

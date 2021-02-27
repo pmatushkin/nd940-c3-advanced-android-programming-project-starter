@@ -16,4 +16,10 @@
     <string name="label_load_app">LoadApp - Current repository by Udacity</string>
     <string name="label_retrofit">Retrofit - Type-safe HTTP Client for Android and Kotlin by Square, Inc</string>
 
+    <string name="url_glide" translatable="false">https://github.com/bumptech/glide/archive/master.zip</string>
+    <string name="url_load_app" translatable="false">https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip</string>
+    <string name="url_retrofit" translatable="false">https://github.com/square/retrofit/archive/master.zip</string>
+
+    <string name="error_please_select_option">Please select a download option.</string>
+
 </resources>

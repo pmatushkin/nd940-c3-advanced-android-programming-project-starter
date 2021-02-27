@@ -30,7 +30,6 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
         app:layout_constraintTop_toBottomOf="@+id/image_cloud_download">
 
         <RadioButton
@@ -38,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/default_gap"
+            android:onClick="onOptionSelected"
             android:text="@string/label_glide" />
 
         <RadioButton
@@ -45,12 +45,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/default_gap"
+            android:onClick="onOptionSelected"
             android:text="@string/label_load_app" />
 
         <RadioButton
             android:id="@+id/radio_retrofit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onOptionSelected"
             android:text="@string/label_retrofit" />
 
     </RadioGroup>
