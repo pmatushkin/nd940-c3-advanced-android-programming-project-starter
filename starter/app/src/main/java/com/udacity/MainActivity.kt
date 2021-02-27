@@ -1,19 +1,23 @@
 package com.udacity
 
 import android.app.DownloadManager
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -39,6 +43,31 @@ class MainActivity : AppCompatActivity() {
         custom_button.setOnClickListener {
             download()
         }
+
+        createNotificationChannel(
+            getString(R.string.load_app_notification_channel_id),
+            getString(R.string.load_app_notification_channel_name)
+        )
+    }
+
+    // This method is edited from the one provided with the EggTimer sample project.
+    private fun createNotificationChannel(channelId: String, channelName: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = NotificationChannel(
+                channelId,
+                channelName,
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                setShowBadge(false)
+                enableLights(true)
+                lightColor = Color.RED
+                enableVibration(true)
+                description = getString(R.string.app_description)
+            }
+
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
     }
 
     private val receiver = object : BroadcastReceiver() {
@@ -46,6 +75,22 @@ class MainActivity : AppCompatActivity() {
             custom_button.completeLoading()
 
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+
+            // This "if" is edited from the one provided with the EggTimer sample project.
+            if ((context != null) && (downloadID == id)) {
+                val notificationManager = ContextCompat.getSystemService(
+                    context,
+                    NotificationManager::class.java
+                ) as NotificationManager
+
+                notificationManager.sendNotification(
+                    urlDescription,
+                    downloadID,
+                    context
+                )
+            }
+
+            downloadID = 0
         }
     }
 
@@ -96,9 +141,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-    companion object {
-        private const val CHANNEL_ID = "channelId"
-    }
-
 }

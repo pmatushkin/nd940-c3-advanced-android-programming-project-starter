@@ -22,4 +22,7 @@
 
     <string name="error_please_select_option">Please select a download option.</string>
 
+    <string name="load_app_notification_channel_id">load_app</string>
+    <string name="load_app_notification_channel_name">Load App</string>
+
 </resources>
