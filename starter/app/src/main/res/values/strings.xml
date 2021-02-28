@@ -25,4 +25,10 @@
     <string name="load_app_notification_channel_id">load_app</string>
     <string name="load_app_notification_channel_name">Load App</string>
 
+    <string name="label_success">Success</string>
+    <string name="label_failure">Failure</string>
+
+    <string name="label_file_name">File Name:</string>
+    <string name="label_file_status">Status:</string>
+
 </resources>

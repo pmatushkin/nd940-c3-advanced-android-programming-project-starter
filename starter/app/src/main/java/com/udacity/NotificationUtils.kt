@@ -10,7 +10,7 @@ import androidx.core.app.NotificationCompat
 // This file is edited from the one provided with the EggTimer sample project.
 
 // Notification ID.
-private val ARG_DOWNLOAD_ID = "download_id"
+val ARG_DOWNLOAD_ID = "download_id"
 private val NOTIFICATION_ID = 0
 
 // extension function to send messages (GIVEN)
@@ -30,7 +30,7 @@ fun NotificationManager.sendNotification(
 ) {
     // Create the content intent for the notification, which launches
     // this activity
-    val contentIntent = Intent(applicationContext, MainActivity::class.java)
+    val contentIntent = Intent(applicationContext, DetailActivity::class.java)
     contentIntent.putExtra(ARG_DOWNLOAD_ID, downloadId)
 
     // create PendingIntent
